@@ -1,0 +1,19 @@
+---
+validators:
+  vlan:
+    :description: Validates Vlan
+    :class: validatevlan
+  cidrv4:
+    :description: Validates subnets
+    :class: validatecidrv4
+  ipv4:
+    :description: Validates IP addresses
+    :class: validateipv4
+  interface:
+    :description: Validates interfaces
+    :class: validateinterface
+  asn:
+    :description: Validates AS-numbers
+    :class: validateasn
+  none:
+    :description: No validation

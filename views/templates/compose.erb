@@ -1,0 +1,42 @@
+<div class="col-md-10" id="maincontents">
+  <div class="row">
+    <div class="content-box-large">
+      <div class="panel-heading">
+	<div class="panel-title">Add/Modify template</div>
+	<div class="panel-options"></div>
+      </div>
+      <div class="panel-body">
+	<p>Input your template here. Use {{ }} around variables. When you submit your template, you will be asked to define your variables as certain types.</p>
+	<div class="content-box-large">
+	  <form action="/templates/add" method="POST" id="composeformelement">
+	    <fieldset>
+	      <div class="form-group">
+		<label>Name</label>
+		<input class="form-control" placeholder="Name" type="text" name="name">
+	      </div>
+	      <div class="form-group">
+		<label>Description</label>
+		<input class="form-control" placeholder="Description" type="text" name="description">
+	      </div>
+	      <div class="form-group">
+		<label>Platform</label>
+		<input class="form-control" placeholder="Platform" type="text" name="platform">
+	      </div>
+	      <div class="form-group">
+		<label>Template to Configure service</label>
+		<textarea class="form-control" rows="12" placeholder="Enter template here" name="up_contents"></textarea>
+	      </div>
+	      <div class="form-group">
+		<label>Template to remove service</label>
+		<textarea class="form-control" rows="12" placeholder="Enter template here" name="down_contents"></textarea>
+	      </div>
+	      <div
+
+		 </fieldset>
+	    <button type="submit" class="btn btn-primary">Add template</button>
+	  </form>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="col-md-10" id="maincontents">
+  <div class="row">
+    <div class="content-box-large">
+      <div class="panel-heading">
+	<div class="panel-title">Manage forms</div>
+	<div class="panel-options"><a href="/forms/compose"><i class="glyphicon glyphicon-plus" id="order_add_btn"></i></a></div>
+      </div>
+      <div class="panel-body">
+	<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="ordertable">
+	  <thead>
+	    <tr>
+	      <th>ID</th>
+	      <th>Name</th>
+	      <th>Description</th>
+	      <th></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @forms.each do |form| %>
+	    <tr>
+	      <td><%= form.id %></td>
+	      <td><%= form.name %></td>
+	      <td><%= form.description %></td>
+	      <td>
+		<a href="/forms/<%= form.id %>"><button class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i>View</button></a>
+		<a href="/forms/delete/<%= form.id %>"><button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>Delete</button></a>
+	      </td>
+	    </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+      </div>
+    </div>
+  </div>
+</div>

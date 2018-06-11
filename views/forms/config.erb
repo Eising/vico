@@ -1,0 +1,33 @@
+<div class="col-md-10" id="maincontents">
+  <div class="row">
+    <div class="content-box-large">
+      <div class="panel-heading">
+	<div class="panel-title">Please select default values and proper name for the form fields.</div>
+	<div class="panel-options"></div>
+      </div>
+      <div class="panel-body">
+	<div class="content-box-large">
+	  <form action="/forms/add" method="POST" id="formformelement">
+	    <fieldset>
+	      <% @tags.each do |tag| %>
+              <h4><%= tag %></h4>
+	      <div class="form-group">
+		<label>Name</label>
+		<input type="text" class="form-control" name="name.<%= tag %>" class="required" value="<%= @defaults[tag]['name'] rescue '' %>">
+	      </div>
+	      <div class="form-group">
+		<label>Default value</label>
+		<input type="text" class="form-control" name="default.<%=tag %>" value="<%= @defaults[tag]['value'] rescue "" %>">
+	      </div>
+	      <% end %>
+	    </fieldset>
+	    <input type="hidden" name="template_ids" value="<%= @template_ids %>">
+	    <input type="hidden" name="name" value="<%= @name %>">
+	    <input type="hidden" name="description" value="<%= @desciption %>">
+	    <button type="submit" class="btn btn-primary">Submit</button>
+	  </form>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>

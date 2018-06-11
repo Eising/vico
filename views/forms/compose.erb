@@ -1,0 +1,35 @@
+<div class="col-md-10" id="maincontents">
+  <div class="row">
+    <div class="content-box-large">
+      <div class="panel-heading">
+	<div class="panel-title">Add new form</div>
+	<div class="panel-options"></div>
+      </div>
+      <div class="panel-body">
+	<div class="content-box-large">
+	  <form action="/forms/config" method="POST" id="composeformelement">
+	    <fieldset>
+	      <div class="form-group">
+		<label>Form name</label>
+		<input type="text" name="name" class="form-control">
+	      </div>
+	      <div class="form-group">
+		<label>Description</label>
+		<input type="text" name="description" class="form-control">
+	      </div>
+	      <div class="form-group">
+		<label>Associated templates (select one or multiple)</label>
+		<select name="templates[]" multiple="multiple" class="form-control custom-scroll" title="Click to select a template">
+		  <% @templates.each do |template| %>
+		  <option value="<%= template[:id] %>"><%= template[:name] %></option>
+		  <% end %>
+		</select>
+	      </div>
+	    </fieldset>
+	    <button type="submit" class="btn btn-primary">Submit</button>
+	  </form>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
