@@ -1,0 +1,7 @@
+#+TITLE: Codename Icing (hopefully a better name will appear)
+
+Icing is a template-based network provisioning system.
+
+It allows you quickly to provision network services using simple, logic-less templates.
+
+The tool is under heavy development
