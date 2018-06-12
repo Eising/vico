@@ -36,3 +36,7 @@ I imagine a workflow approximately like this:
 This tool requires a postgresql database, as well as a modern Ruby implementation.
 
 More information will come when the code is more mature
+
+* Demo
+
+See the following [[https://i.imgur.com/jSQZtQm.gifv][screencast]] for an example usage of the tool.
