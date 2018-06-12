@@ -1,6 +1,8 @@
 class Icing < Sinatra::Base
 
   get '/config' do
+    @pagename = "config_index"
+    @pagetitle = "View Configurations"
     @configs = Configs.all
 
     erb :'config/index'
@@ -28,6 +30,8 @@ class Icing < Sinatra::Base
   end
 
   get '/config/view/:id' do
+    @pagename = "config_view"
+    @pagetitle = "View Configuration"
     @config = Configs.where(:id => params[:id]).first
 
 

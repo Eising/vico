@@ -1,7 +1,7 @@
 class Icing < Sinatra::Base
     not_found do
         @pagetitle = "Page not found"
-        haml :notfound
+        erb :notfound
     end
 
 end
