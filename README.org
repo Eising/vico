@@ -5,3 +5,34 @@ Icing is a template-based network provisioning system.
 It allows you quickly to provision network services using simple, logic-less templates.
 
 The tool is under heavy development
+
+* Concept
+
+This tool takes a rather simplistic approach to network configuration, defining
+services as a combination of templates.
+
+For example, a service could consist of the following templates:
+
+- Interface with IP-address
+- VRRP
+- QoS
+- OSPF
+
+Combining these four parts in to a service, the tool will gather the variables
+in the template, validate them using specified datatypes, and generate a form.
+
+This form will then compile in to a config, that can be fetched from the system.
+
+* Usage
+
+I imagine a workflow approximately like this:
+
+1. The network engineers define the necessary templates and services
+2. The provisioning persons configure services using the definitions made before
+3. Some external provisioning tool fetches the configuration and pushes it to the box.
+
+
+* Installation
+This tool requires a postgresql database, as well as a modern Ruby implementation.
+
+More information will come when the code is more mature
