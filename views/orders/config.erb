@@ -1,0 +1,26 @@
+<div class="col-md-10" id="maincontents">
+  <div class="row">
+    <div class="content-box-large">
+      <div class="panel-heading">
+	<div class="panel-title">Configure Service</div>
+	<div class="panel-options"></div>
+      </div>
+      <div class="panel-body">
+	<form action="/order/config/save" method="POST" id="configform">
+	  <input type="hidden" name="order_id" value="<%= @order.id %>">
+	  <fieldset>
+	    <% @defaults.each do |element, config| %>
+	    <div class="form-group">
+	      <label class="col-md-4 control-label"><%= config['name'] %></label>
+	      <div class="col-sm-5">
+		<%= tag_to_form(element, config["value"], config[:klass]) %>
+              </div>
+	    </div>
+	    <% end %>
+	  </fieldset>
+	  <button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+      </div>
+    </div>
+  </div>
+</div>

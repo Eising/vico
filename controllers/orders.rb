@@ -7,7 +7,7 @@ class Icing < Sinatra::Base
 
   get '/' do
     @pagename = "orders_index"
-    @pagetitle = "All orders"
+    @pagetitle = "Provision Service"
 
     @orders = Orders.exclude(:deleted => true).all
     @forms = Forms.exclude(:deleted => true).all
@@ -15,6 +15,7 @@ class Icing < Sinatra::Base
   end
 
   post '/order/add' do
+    @pagetitle = "Provision Service"
     # Do something with the submitted
     args = {
       :reference => params[:reference],
@@ -26,20 +27,44 @@ class Icing < Sinatra::Base
       :created => Time.now
     }
     order_id = Orders.create(args)
-    redirect to("/order/config/#{order_id}")
+    redirect to("/order/config/#{order_id.id}")
 
   end
 
   get '/order/config/:id' do
+    @pagename = "orders_config"
+    @pagetitle = "Provision Service"
     order = Orders.where(:id => params[:id]).first
-    p order.form
-    p order.form.template
-    "hello world"
+    all_tags = []
+    all_fields = {}
+    order.form.template.each do |template|
+      all_tags = all_tags | get_configurable_tags(template.id)
+      all_fields.merge! template.fields
+    end
+    defaults = order.form.defaults
+    all_tags.each do |tag|
+      if defaults.has_key? tag
+        defaults[tag][:klass] = config.validators[all_fields[tag]][:class]
+      end
+    end
+    @defaults = defaults
+    @order = order
+
+    erb :"orders/config"
+
   end
 
+  post '/order/config/save' do
+    order = Orders.where(:id => params[:order_id])
+    template_fields = {}
+    params.each do |param, value|
+      next if param == "order_id"
+      template_fields[param] = value
+    end
 
+    order.update(:template_fields => template_fields.to_json)
 
-
-
+    redirect to("/config/render_order/#{params[:order_id]}")
+  end
 
 end

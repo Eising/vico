@@ -14,7 +14,7 @@ class Icing < Sinatra::Base
 
     # @method get_forms_view
     # View forms
-    get '/forms/:id' do
+    get '/form/:id' do
         @pagename = "forms_view"
         @pagetitle = "View forms"
 

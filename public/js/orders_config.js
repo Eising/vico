@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("#provisionform").validate({
+    $("#configform").validate({
 	errorElement: "em",
 	errorPlacement: function(error, element) {
 	    // Add the help-block class to the error element

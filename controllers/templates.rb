@@ -18,6 +18,8 @@ class Icing < Sinatra::Base
         # TODO: Hande lack of tags
         id = params[:id]
         @template = Templates.where(:id => id).first
+        @up_template = abbr_on_template(id, @template.up_contents)
+        @down_template = abbr_on_template(id, @template.down_contents)
         erb :'templates/view'
     end
 
