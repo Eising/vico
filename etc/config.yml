@@ -3,17 +3,33 @@ validators:
   vlan:
     :description: Validates Vlan
     :class: validatevlan
+    :type: :range
+    :start: 1
+    :end: 4094
   cidrv4:
-    :description: Validates subnets
+    :description: Validates IPv4 CIDR prefixes
     :class: validatecidrv4
+    :type: :regex
+    :regex: ^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/[0-9]+$
+    :error: Invalid IPv4 Prefix
   ipv4:
-    :description: Validates IP addresses
+    :description: Validates IPv4 addresses
     :class: validateipv4
+    :type: :regex
+    :regex: ^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$
+    :error: Invalid IPv4 Address
   interface:
     :description: Validates interfaces
     :class: validateinterface
+    :type: :regex
+    :regex: ^(GigabitEthernet([0-9]+\/[0-9]+)|TenGigabitEthernet([0-9]+\/[0-9]+)|TenGigE([0-9]+\/[0-9]+\/[0-9]+\/[0-9]+)|Vlan|Bundle-Ether([0-9]+)|GigabitEthernet([0-9]+\/[0-9]+\/[0-9]+)|GigabitEthernet([0-9]+\/[0-9]+\/[0-9]+\/[0-9]+)|(?:xe|ge)-([0-9]+\/[0-9]+\/[0-9]+))$
+    :error: Invalid Interface Name
   asn:
     :description: Validates AS-numbers
     :class: validateasn
+    :type: :range
+    :start: 1
+    :end: 4294967296
   none:
     :description: No validation
+    :type: novalidation

@@ -24,7 +24,7 @@
     });
     $(function() {
 	$.validator.addClassRules({
-	    validatevlan: {
+	validatevlan: {
             range: [1, 4094]
         },
         validatecidrv4: {

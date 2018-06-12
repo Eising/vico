@@ -1,0 +1,28 @@
+<% config.validators.each do |name, opts| %>
+<% if opts[:type] == :regex %>
+
+$(function() {
+    $.validator.addMethod('<%= name %>Checker', function(value) {
+	var rule = "<%= opts[:regex] %>";
+	return value.match(rule);
+    }, '<%= opts[:error] %>');
+});
+<% end %>
+<% end %>
+    $(function() {
+	$.validator.addClassRules({
+<% config.validators.each do |name, opts| %>
+<% if opts[:type] == :range %>
+
+		    <%= opts[:class] %>: {
+			range: [<%= opts[:start] %>, <%= opts[:end] %>]
+		    },
+		    <% elsif opts[:type] == :regex %>
+
+		    <%= opts[:class] %>: {
+			<%= name %>Checker: true
+		    },
+<% end %>
+<% end %>
+	})
+    });
