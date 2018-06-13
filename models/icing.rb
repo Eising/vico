@@ -2,7 +2,7 @@ Sequel::Model.plugin :xml_serializer
 Sequel::Model.plugin :json_serializer
 
 class Templates < Sequel::Model
-  many_to_many :form, :class => :Forms
+  many_to_many :form, :class => :Forms, :right_key => :form_id, :left_key => :template_id
 end
 
 class Forms < Sequel::Model
