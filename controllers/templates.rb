@@ -23,12 +23,6 @@ class Icing < Sinatra::Base
     erb :'templates/view'
   end
 
-  # @method get_templates_validators_json
-  # Returns validators in JSON
-  get '/templates/validators.json' do
-    config[:validators].to_json
-  end
-
   # @method get_templates_compose
   # Compose template
   get '/templates/compose' do
