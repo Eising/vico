@@ -14,6 +14,10 @@ class Icing < Sinatra::Base
     # Compile the template
 
     params = order.template_fields
+    # Include the standard fields
+    params[:customer] = order.customer
+    params[:location] = order.location
+    params[:reference] = order.reference
     up_template = []
     down_template = []
     order.form.template.each do |template|

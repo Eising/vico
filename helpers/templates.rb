@@ -8,11 +8,9 @@ class Icing < Sinatra::Base
     #speedtest = Speedtest.new($config)
     #tags = speedtest.get_template_tags(template_id)
     tags = get_template_tags(template_id)
-=begin
-       # We do not want to configure default tags
-       default_tags = %w(testcpe testbb pairlocal pairremote netlocal netremote)
-       default_tags.each { |t| tags.delete(t) }
-=end
+    # We do not want to configure default tags
+    default_tags = %w(customer location product reference)
+    default_tags.each { |t| tags.delete(t) }
 
     tags
   end
