@@ -75,18 +75,26 @@ class Icing < Sinatra::Base
             halt 404
         end
         form = Forms.where(:id => id).first
-        @cpe_template_id = form[:cpe_template_id]
-        @backbone_template_id = form[:backbone_template_id]
-        cpe_tags = get_configurable_tags(@cpe_template_id)
-        backbone_tags = get_configurable_tags(@backbone_template_id)
-        @tags = cpe_tags | backbone_tags
-        @name = form[:name]
-        @description = form[:description]
+
+        template_ids = form.template.collect { |x| x.id }
+
+        tags = []
+        template_ids.each do |id|
+          get_configurable_tags(id).each { |tag| tags << tag }
+        end
+        @tags = tags.uniq
+
+        @template_ids = template_ids.join(",")
+
+        @name = form.name
+
+        @description = form.description
+
         @update = true
         @form_id = id
-        @defaults = JSON.parse(form.defaults)
+        @defaults = form.defaults
 
-        haml :'/forms/config'
+        erb :'/forms/config'
     end
 
 
@@ -115,7 +123,7 @@ class Icing < Sinatra::Base
         if form.count == 1
           form = form.first
           form.update(args)
-          flash[:notice] = "updated form ##{form.id}"
+#          flash[:notice] = "updated form ##{form.id}"
         else
           halt 404
         end
