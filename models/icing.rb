@@ -18,3 +18,7 @@ end
 class Configs < Sequel::Model
   many_to_one :order, :class => :Orders
 end
+
+class Inventories < Sequel::Model
+
+end
