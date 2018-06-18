@@ -2,43 +2,43 @@
   <div class="row">
     <div class="content-box-large">
       <div class="panel-heading">
-	<div class="panel-title">All Configurations</div>
-	<div class="panel-options"></div>
+        <div class="panel-title">All Configurations</div>
+        <div class="panel-options"></div>
       </div>
       <div class="panel-body">
-	<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="configtable">
-	  <thead>
-	    <tr>
-	      <th>#</th>
-	      <th>Reference</th>
-	      <th>Customer</th>
-	      <th>Service</th>
-	      <th>Action</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <% @configs.each do |config| %>
-	    <tr>
-	      <td><%= config.id %></td>
-	      <td><%= config.order.reference %></td>
-	      <td><%= config.order.customer %></td>
-	      <td><%= config.order.form.name %></td>
-	      <td>
-		<div class="btn-group">
-		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-		    View <span class="caret"></span>
-		  </button>
-		  <ul class="dropdown-menu" role="menu">
-		    <li><a href="/config/view/<%= config.id %>">View</a></li>
-		    <li><a href="/config/raw/up/<%= config.id %>">As text (Service Up)</a></li>
-		    <li><a href="/config/raw/down/<%= config.id %>">As text (Service Down)</a></li>
-		  </ul>
-		</div>
-	      </td>
-	    </tr>
-	    <% end %>
-	  </tbody>
-	</table>
+        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="configtable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Reference</th>
+              <th>Customer</th>
+              <th>Service</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @configs.each do |config| %>
+            <tr>
+              <td><%= config.id %></td>
+              <td><%= config.order.reference %></td>
+              <td><%= config.order.customer %></td>
+              <td><%= config.order.form.name %></td>
+              <td>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    View <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="/config/view/<%= config.id %>">View</a></li>
+                    <li><a href="/config/raw/up/<%= config.id %>">As text (Service Up)</a></li>
+                    <li><a href="/config/raw/down/<%= config.id %>">As text (Service Down)</a></li>
+		              </ul>
+		            </div>
+	            </td>
+	          </tr>
+	          <% end %>
+	        </tbody>
+	      </table>
       </div>
     </div>
   </div>

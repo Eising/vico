@@ -19,6 +19,7 @@ class Icing < Sinatra::Base
     # Do something with the submitted
     args = {
       :reference => params[:reference],
+      :node => params[:node],
       :customer => params[:customer],
       :location => params[:location],
       :product => params[:product],

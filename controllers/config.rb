@@ -55,6 +55,33 @@ class Icing < Sinatra::Base
     @config.down_config
   end
 
+  get '/config/nodes' do
+    @pagename = "config_nodes"
+    @pagetitle = "View node conf"
+    # Fetch all orders where the node field is set
+    @orders = Orders.exclude(:deleted => true).exclude(:node => nil).select(:node).distinct.all
+
+    erb :'/config/nodes'
+
+  end
+
+  get '/config/node/:node' do
+    @pagename = "config_nodeview"
+    @pagetitle = params[:node]
+    valid_nodes = Orders.exclude(:deleted => true).exclude(:node => nil).select(:node).distinct.all.collect { |n| n.node }
+
+    if not valid_nodes.include? params[:node]
+      redirect to('/config/nodes')
+    end
+    @nodename = params[:node]
+    @configs = Orders.exclude(:deleted => true).where(:node => params[:node]).all
+
+    erb :'/config/nodeview'
+
+  end
+
+
+
 
 
 end
