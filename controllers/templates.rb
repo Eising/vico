@@ -45,6 +45,15 @@ class Icing < Sinatra::Base
     erb :'templates/compose'
   end
 
+  get '/templates/clone/:id' do
+    @pagename = "template_compose"
+    @pagetitle = "Administrate templates"
+    @template = Templates.where(:id => params[:id]).first
+
+    erb :'templates/compose'
+
+  end
+
 
   # @method post_templates_add
   # Add a template
