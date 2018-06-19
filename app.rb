@@ -27,6 +27,9 @@ class Icing < Sinatra::Base
 
   DB.extension :pg_array
   DB.extension :pg_json
+  Sequel.extension :pg_array_ops
+  Sequel.extension :pg_json_ops
+
 
   # Check if migrations are up to date
   Sequel.extension :migration

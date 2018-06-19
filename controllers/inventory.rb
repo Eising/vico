@@ -1,3 +1,4 @@
+# WIP
 class Icing < Sinatra::Base
 
   get '/inventories' do
@@ -14,6 +15,9 @@ class Icing < Sinatra::Base
   end
 
   # JavaScript magic: https://github.com/lightswitch05/table-to-json
-  # In order to make this work, we need to update the entire JSON document every time we do a transaction
 
+  post '/inventories/row/add' do
+
+
+  end
 end
