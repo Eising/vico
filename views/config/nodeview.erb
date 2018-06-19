@@ -7,7 +7,10 @@
       <div class="panel-body">
 	<pre>
 <% @configs.each do |config| %>
+<% next if config.order_config.empty? %>
 <%= config.order_config.first.up_config %>
+
+
 <% end %>
 	</pre>
       </div>

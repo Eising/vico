@@ -18,6 +18,7 @@
           </thead>
           <tbody>
             <% @configs.each do |config| %>
+            <% next if config.order.deleted %>
             <tr>
               <td><%= config.id %></td>
               <td><%= config.order.reference %></td>
