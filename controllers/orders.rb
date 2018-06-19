@@ -11,6 +11,7 @@ class Icing < Sinatra::Base
 
     @orders = Orders.exclude(:deleted => true).all
     @forms = Forms.exclude(:deleted => true).all
+    @products = get_products
     erb :'orders/orders'
   end
 

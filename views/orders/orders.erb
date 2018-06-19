@@ -33,7 +33,12 @@
 	    <div class="form-group">
 	      <label for="inputProd" class="col-sm-2 control-label">Product</label>
 	      <div class="col-sm-10">
-		<input type="text" class="form-control" id="inputProd" placeholder="Product" name="product">
+		<input type="text" class="form-control" id="inputProd" placeholder="Product" name="product" list="list" autocomplete="off">
+    <datalist id="list">
+    <% @products.each do |product| %>
+    <option value="<%= product %>"></option>
+    <% end %>
+    </datalist>
 	      </div>
 	    </div>
 	    <div class="form-group">
