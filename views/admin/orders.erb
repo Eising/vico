@@ -30,9 +30,14 @@
               <td><%= order.form.name %></td>
               <td><%= order.comment %></td>
               <td>
+                <a href="/config/render_order/<%= order.id %>">
+                  <button class="btn btn-default">
+                    <i class="glyphicon glyphicon-refresh"></i> Reprovision
+                  </button>
+                </a>
                 <a href="/admin/order_delete/<%= order.id %>">
                   <button class="btn btn-danger">
-                    <i class="glyphicon glyphicon-remove"></i>Delete
+                    <i class="glyphicon glyphicon-remove"></i> Delete
                   </button>
                 </a>
               </td>

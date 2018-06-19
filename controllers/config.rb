@@ -28,7 +28,13 @@ class Icing < Sinatra::Base
     up_template = up_template.join("\n")
     down_template = down_template.join("\n")
 
-    config = Configs.create(:up_config => up_template, :down_config => down_template, :order_id => order.id, :timestamp => Time.now)
+    if Configs.where(:order_id => order.id).count > 0
+      # Update the old config
+      Configs.where(:order_id => order.id).update(:up_config => up_template, :down_config => down_template, :order_id => order.id, :timestamp => Time.now)
+      config = Configs.where(:order_id => order.id).first
+    else
+        config = Configs.create(:up_config => up_template, :down_config => down_template, :order_id => order.id, :timestamp => Time.now)
+    end
 
     redirect to("/config/view/#{config.id}")
   end
