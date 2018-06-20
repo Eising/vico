@@ -1,0 +1,39 @@
+<div class="col-md-10" id="maincontents">
+    <div class="row">
+        <div class="col-md-12 panel-info"
+            <div class="content-box-header panel-heading"
+                <div class="panel-title">Create Inventory</div>
+            </div>
+            <div class="panel-body">
+                <form action="/inventories/add" method="POST">
+                    <fieldset>
+                        <legend>Basic Information</legend>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Inventory Name</label>
+                            <div class="col-sm-6" >
+                                <input type="text" class="form-control" name="name" placeholder="Enter Inventory Name">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset id="customfields">
+                        <legend>Fields</legend>
+                    </fieldset>
+                    <hr>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Add field</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="fieldname" placeholder="Enter field name" id="fieldname" > </div>
+                            <div class="col-sm-2">
+                                <a href="#"> <button type="button" id="addfieldbtn" class="btn btn-success">Add Field</button></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

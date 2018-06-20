@@ -17,7 +17,7 @@
               <% @inventories.each do |inventory| %>
                   <tr>
                       <td><%= inventory.id %></td>
-                      <td><%= inventory.name %></td>
+                      <td><%= inventory.entries["name"] %></td>
                       <td><a href="/inventory/<%= inventory.id %>"><button class="btn btn-primary">View</button></a> </td>
                   </tr>
               <% end %>

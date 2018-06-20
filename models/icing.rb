@@ -20,5 +20,6 @@ class Configs < Sequel::Model
 end
 
 class Inventories < Sequel::Model
-
+  many_to_one :inventory, class: self
+  one_to_many :rows, key: :inventory_id, class: self
 end
