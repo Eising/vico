@@ -18,6 +18,20 @@
 	    </div>
 	    <% end %>
 	  </fieldset>
+    <fieldset>
+        <legend>Select from Inventory</legend>
+        <div class="form-group">
+            <% @inventory_tags.each do |inv, selectors| %>
+                <% selectors.each do |selector, fields| %>
+                    <label class="col-md-4 control-label" ><%= selector %></label>
+                    <div class="col-sm-5">
+                        <%= inventory_to_select(inv, selector) %>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+    </fieldset>
+        </div>
 	  <button type="submit" class="btn btn-primary">Submit</button>
 	</form>
       </div>

@@ -20,7 +20,33 @@ class Icing < Sinatra::Base
     params[:reference] = order.reference
     up_template = []
     down_template = []
+    inventory_entries = {}
+    p params
+    params.each do |param, value|
+      if res = param.match(/^inv\.(\d+)\.selector\.(.*)$/)
+        inventory_id = res[1]
+        row_id = value
+        row = Inventories.where(:id => row_id).first
+        selector = res[2]
+        inventory = Inventories.where(:id => inventory_id).first
+        inventory_name = inventory.entries["name"]
+        row.entries.each do |entry, val|
+          keyname = "inventory__#{inventory_name}__#{entry}__#{selector}"
+          p keyname
+          inventory_entries[keyname] = val
+        end
+      end
+    end
+
+
+
     order.form.template.each do |template|
+      get_inventory_tags_raw(template.id).each do |tag|
+        comp_name = tag
+        if inventory_entries.has_key? comp_name
+          params[tag] = inventory_entries[comp_name]
+        end
+      end
       up_template << Mustache.render(template.up_contents, params)
       down_template << Mustache.render(template.down_contents, params)
     end

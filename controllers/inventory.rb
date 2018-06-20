@@ -27,7 +27,7 @@ class Icing < Sinatra::Base
 
   get '/inventories' do
 
-    @inventories = Inventories.where(:inventory_id => nil).exclude(:deleted => true)
+    @inventories = Inventories.where(:inventory_id => nil).exclude(:deleted => true).all
 
     erb :'inventories/inventories'
   end
@@ -41,7 +41,14 @@ class Icing < Sinatra::Base
     erb :'inventories/view'
   end
 
-  # JavaScript magic: https://github.com/lightswitch05/table-to-json
+  get '/inventories/delete/:id' do
+    inventory = Inventories.where(:id => params['id'])
+    if inventory.count == 1
+      inventory.update(:deleted => true)
+    end
+
+    redirect to('/inventories')
+  end
 
   post '/inventories/row/update' do
     id = params["pk"]
@@ -90,6 +97,28 @@ class Icing < Sinatra::Base
     @pagetitle = "Add Inventory"
 
     erb :'/inventories/add'
+
+  end
+
+  post '/inventories/add' do
+
+    name = params["name"]
+    fields = {}
+
+    params.each do |key, value|
+      if res = key.match(/^field\.(.*)$/)
+        fields[res[1]] = value
+      end
+    end
+
+    entries = {
+      "name" => name,
+      "fields" =>  fields
+    }
+
+    Inventories.create(:entries => entries.to_json)
+
+    redirect to('/inventories')
 
   end
 end

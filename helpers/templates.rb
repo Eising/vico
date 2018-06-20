@@ -5,15 +5,51 @@ class Icing < Sinatra::Base
   # @param template_id [Integer] The database template ID
   # @return an Array of tags
   def get_configurable_tags(template_id)
-    #speedtest = Speedtest.new($config)
-    #tags = speedtest.get_template_tags(template_id)
     tags = get_template_tags(template_id)
     # We do not want to configure default tags
     default_tags = %w(customer location product reference)
     default_tags.each { |t| tags.delete(t) }
+    # Delete Inventory keys too
+    tags.each do |tag|
+      if tag =~ /^inventory__/
+        tags.delete(tag)
+      end
+    end
 
     tags
   end
+
+ def get_inventory_tags(template_id)
+     tags = get_template_tags(template_id)
+
+     inventory_tags = tags.grep(/^inventory__/)
+
+     output = {}
+     inventory_tags.each do |tag|
+       if res = tag.match(/^inventory__(\S+)__(\S+)__(\S+)/)
+         if output.has_key? res[1]
+           if output[res[1]].has_key? res[3]
+             output[res[1]][res[3]] << res[2]
+           else
+             output[res[1]] = { res[3] => [ res[2] ] }
+           end
+         else
+           output[res[1]] = { res[3] => [ res[2] ] }
+         end
+       end
+     end
+
+     output
+
+ end
+
+ def get_inventory_tags_raw(template_id)
+     tags = get_template_tags(template_id)
+
+     inventory_tags = tags.grep(/^inventory__/)
+
+     inventory_tags
+ end
 
   # Extracts all tags from a Mustache template
   #
@@ -103,6 +139,18 @@ class Icing < Sinatra::Base
     end
     output += "/>"
     output
+  end
+
+  def inventory_to_select(inventory, selector)
+    entries = Sequel.pg_jsonb_op(:entries)
+    inventory = Inventories.exclude(:deleted => true).where(entries.get_text('name') => inventory)
+    output = "<select class=\"required form-control\" name=\"inv.#{inventory.first.id}.selector.#{selector}\">"
+    inventory.first.rows.each do |row|
+      output += "<option value=\"#{row.id}\">#{row.entries[selector]}</option>"
+    end
+    output += "</select>"
+    output
+
   end
 
   def abbr_on_template(template_id, template_text)

@@ -39,11 +39,26 @@ class Icing < Sinatra::Base
     order = Orders.where(:id => params[:id]).first
     all_tags = []
     all_fields = {}
+    inventory_tags = {}
     order.form.template.each do |template|
       all_tags = all_tags | get_configurable_tags(template.id)
       all_fields.merge! template.fields
+      get_inventory_tags(template.id).each do |inventory, selector|
+        if inventory_tags.has_key? inventory
+          if inventory_tags[inventory].has_key? selector
+            inventory_tags[inventory][selector] = inventory_tags[inventory][selector] | selector
+          else
+            inventory_tags[inventory][selector] = selector
+          end
+        else
+          inventory_tags[inventory] = selector
+        end
+      end
     end
     defaults = order.form.defaults
+
+    @inventory_tags = inventory_tags
+
     all_tags.each do |tag|
       if defaults.has_key? tag
         defaults[tag][:klass] = config.validators[all_fields[tag]][:class]
