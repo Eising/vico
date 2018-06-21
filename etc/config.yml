@@ -5,11 +5,13 @@ validators:
     :class: validatestring
     :type: :regex
     :regex: ^\S+$
+    :error: Just letters and numbers, no spaces
   digits:
     :description: Validates numbers
     :class: validatedigits
     :type: :regex
     :regex: ^[0-9]+$
+    :error: Must be numbers only
   vlan:
     :description: Validates Vlan
     :class: validatevlan
