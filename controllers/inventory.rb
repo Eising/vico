@@ -95,6 +95,7 @@ class Icing < Sinatra::Base
   get '/inventories/add' do
     @pagename = "inventory_add"
     @pagetitle = "Add Inventory"
+    @validators = config.validators
 
     erb :'/inventories/add'
 
@@ -119,6 +120,10 @@ class Icing < Sinatra::Base
     Inventories.create(:entries => entries.to_json)
 
     redirect to('/inventories')
+
+  end
+
+  get '/api/v1/inventories' do
 
   end
 end

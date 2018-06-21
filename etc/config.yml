@@ -1,5 +1,15 @@
 ---
 validators:
+  string:
+    :description: basic string validation
+    :class: validatestring
+    :type: :regex
+    :regex: ^\S+$
+  digits:
+    :description: Validates numbers
+    :class: validatedigits
+    :type: :regex
+    :regex: ^[0-9]+$
   vlan:
     :description: Validates Vlan
     :class: validatevlan

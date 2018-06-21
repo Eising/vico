@@ -6,7 +6,9 @@ $(document).ready(function(){
         }
         else {
             $("#errormsg").html("")
-            $("#customfields").append("<div class=\"col-md\" id=\""+ fieldname +"row\"><input type=\"hidden\" name=\"field." + fieldname +"\" value=\"string\" class=\"customfield\"><div class=\"col-sm-2\"><input class=\"form-control\" disabled=\"disabled\" type=\"text\" value=\""+ fieldname +"\"><button type=\"button\" id=\""+ fieldname +"\" class=\"removalbutton btn btn-danger btn-xs\">Remove</button></div></div>");
+            var fieldclass = $("#fieldclass").val();
+            console.log(fieldclass);
+            $("#customfields").append("<div class=\"col-md\" id=\""+ fieldname +"row\"><input type=\"hidden\" name=\"field." + fieldname +"\" value=\""+ fieldclass + "\" class=\"customfield\"><div class=\"col-sm-2\"><input class=\"form-control\" disabled=\"disabled\" type=\"text\" value=\""+ fieldname + " ("+ fieldclass + ")\"><button type=\"button\" id=\""+ fieldname +"\" class=\"removalbutton btn btn-danger btn-xs\">Remove</button></div></div>");
         }
             $("#fieldname").val("");
             $("#fieldname").focus();

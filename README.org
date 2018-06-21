@@ -31,6 +31,33 @@ I imagine a workflow approximately like this:
 2. The provisioning persons configure services using the definitions made before
 3. Some external provisioning tool fetches the configuration and pushes it to the box.
 
+* Inventories
+It is possible to define inventories, i.e. tables of information, that can be accessed from templates.
+
+To reference an inventory from a template, use the following syntax:
+
+#+BEGIN_EXAMPLE
+{{inventory__inventoryname__field__selector}}
+#+END_EXAMPLE
+
+These fields are defined as follows:
+- Inventoryname :: The name of the Inventory table
+- Field :: The field that needs to be inserted
+- Selector :: The field to show in a dropdown
+
+Here's an example:
+A table of routers, called Routers, could look like this:
+
+| Hostname |    Loopback | Location |
+|----------+-------------+----------|
+| cr1.ams  | 192.168.0.1 | AMS      |
+
+In a table, you would typically want to insert the loopback address, but select the hostname from a list.
+
+The template would therefore have the following tag:
+
+{{inventory__Routers__Loopback__Hostname}}
+
 
 * Installation
 This tool requires a postgresql database, as well as a modern Ruby implementation.
