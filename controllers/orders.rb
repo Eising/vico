@@ -28,19 +28,28 @@ class Icing < Sinatra::Base
       :form_id => params[:form_id],
       :created => Time.now
     }
-    order_id = Orders.create(args)
-    redirect to("/order/config/#{order_id.id}")
+    template_fields = {}
+    params.each do |param, value|
+      if res = param.match(/^form\.(.*)$/)
+        field = res[1]
+        template_fields[field] = value
+      end
+    end
+    args[:template_fields] = template_fields.to_json
+
+    order = Orders.create(args)
+
+    redirect to("/config/render_order/#{order.id}")
 
   end
 
-  get '/order/config/:id' do
-    @pagename = "orders_config"
-    @pagetitle = "Provision Service"
-    order = Orders.where(:id => params[:id]).first
+  get '/order/dynconfig/:id' do
+    form = Forms.where(:id => params[:id]).first
+
     all_tags = []
     all_fields = {}
     inventory_tags = {}
-    order.form.template.each do |template|
+    form.template.each do |template|
       all_tags = all_tags | get_configurable_tags(template.id)
       all_fields.merge! template.fields
       get_inventory_tags(template.id).each do |inventory, selector|
@@ -55,7 +64,7 @@ class Icing < Sinatra::Base
         end
       end
     end
-    defaults = order.form.defaults
+    defaults = form.defaults
 
     @inventory_tags = inventory_tags
 
@@ -65,23 +74,13 @@ class Icing < Sinatra::Base
       end
     end
     @defaults = defaults
-    @order = order
 
-    erb :"orders/config"
+    erb :'orders/dynconfig', :layout => false
+
+
+
 
   end
 
-  post '/order/config/save' do
-    order = Orders.where(:id => params[:order_id])
-    template_fields = {}
-    params.each do |param, value|
-      next if param == "order_id"
-      template_fields[param] = value
-    end
-
-    order.update(:template_fields => template_fields.to_json)
-
-    redirect to("/config/render_order/#{params[:order_id]}")
-  end
 
 end

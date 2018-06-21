@@ -6,65 +6,90 @@
 	</div>
 	<div class="panel-body">
 	  <form class="form-horizontal" role="form" method="POST" action="/order/add" id="provisionform">
-	    <div class="form-group">
-	      <label for="inputRef" class="col-sm-2 control-label">Order Reference</label>
-	      <div class="col-sm-10">
-		<input type="text" class="form-control required" id="inputRef" placeholder="Reference" name="reference">
-	      </div>
-	    </div>
-	    <div class="form-group">
-	      <label for="inputCust" class="col-sm-2 control-label">Customer</label>
-	      <div class="col-sm-10">
-		<input type="text" class="form-control" id="inputCust" placeholder="Customer" name="customer">
-	      </div>
-	    </div>
-	    <div class="form-group">
-	      <label for="inputLoc" class="col-sm-2 control-label">Location</label>
-	      <div class="col-sm-10">
-		<input type="text" class="form-control" id="inputLoc" placeholder="Location" name="location">
-	      </div>
-	    </div>
-	    <div class="form-group">
-	      <label for="inputLoc" class="col-sm-2 control-label">Node</label>
-	      <div class="col-sm-10">
-		<input type="text" class="form-control" id="inputNode" placeholder="Node name" name="node">
-	      </div>
-	    </div>
-	    <div class="form-group">
-	      <label for="inputProd" class="col-sm-2 control-label">Product</label>
-	      <div class="col-sm-10">
-		<input type="text" class="form-control" id="inputProd" placeholder="Product" name="product" list="list" autocomplete="off">
-    <datalist id="list">
-    <% @products.each do |product| %>
-    <option value="<%= product %>"></option>
-    <% end %>
-    </datalist>
-	      </div>
-	    </div>
-	    <div class="form-group">
-	      <label for="inputForm" class="col-sm-2 control-label">Service Form</label>
-	      <div class="col-sm-10">
-		<select class="form-control required" id="inputForm" name="form_id">
-		  <option value="" selected="selected">Select Service</option>
-		  <% @forms.each do |form| %>
-		  <option value="<%= form.id %>"><%= form.name %></option>
-		  <% end %>
-		</select>
-	      </div>
-	    </div>
-	    <div class="form-group">
-	      <label for="inputComment" class="col-sm-2 control-label">Comment</label>
-	      <div class="col-sm-10">
-		<textarea class="form-control" placeholder="Comment" rows="3" name="comment"></textarea>
-	      </div>
-	    </div>
-	    <div class="form-group">
-	      <div class="col-sm-offset-2 col-sm-10">
-		<button type="submit" class="btn btn-primary">Add</button>
-	      </div>
-	    </div>
-	  </form>
-	</div>
+      <div id="rootwizard">
+          <div class="navbar">
+              <div class="navbar-inner">
+                  <div class="container">
+                      <ul>
+                          <li><a href="#tab1" data-toggle="tab">Basic Information</a></li>
+                          <li><a href="#tab2" data-toggle="tab">Template Data</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+          <div class="tab-content">
+              <div class="tab-pane" id="tab1">
+                    <div class="form-group">
+                        <label for="inputRef" class="col-sm-2 control-label">Order Reference</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control required" id="inputRef" placeholder="Reference" name="reference">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputCust" class="col-sm-2 control-label">Customer</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputCust" placeholder="Customer" name="customer">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLoc" class="col-sm-2 control-label">Location</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputLoc" placeholder="Location" name="location">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLoc" class="col-sm-2 control-label">Node</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputNode" placeholder="Node name" name="node">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputProd" class="col-sm-2 control-label">Product</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputProd" placeholder="Product" name="product" list="list" autocomplete="off">
+                            <datalist id="list">
+                                <% @products.each do |product| %>
+                                    <option value="<%= product %>"></option>
+                                <% end %>
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputForm" class="col-sm-2 control-label">Service Form</label>
+                        <div class="col-sm-10">
+                            <select class="form-control required" id="inputForm" name="form_id">
+                                <option value="" selected="selected">Select Service</option>
+                                <% @forms.each do |form| %>
+                                    <option value="<%= form.id %>"><%= form.name %></option>
+                                <% end %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputComment" class="col-sm-2 control-label">Comment</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" placeholder="Comment" rows="3" name="comment"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <ul class="pager wizard">
+                                <li class="next"><a href="#">Next</a></li>
+                            </ul>
+                        </div>
+                    </div>
+              </div>
+              <div class="tab-pane" id="tab2">
+                  <div class="form-group">
+                      Please Select a template first.
+                  </div>
+              </div>
+          </div>
+
+      </div>
+
+    </form>
+  </div>
       </div>
   </div>
 </div>

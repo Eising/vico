@@ -1,0 +1,33 @@
+	<div class="panel-title">Configure Service</div>
+	<div class="panel-options"></div>
+      </div>
+      <div class="panel-body">
+	<form action="/order/config/save" method="POST" id="configform">
+	  <fieldset>
+	    <% @defaults.each do |element, config| %>
+	    <div class="form-group">
+	      <label class="col-md-4 control-label"><%= config['name'] %></label>
+	      <div class="col-sm-5">
+		<%= tag_to_form(element, config["value"], config[:klass], "form.") %>
+              </div>
+	    </div>
+	    <% end %>
+	  </fieldset>
+    <% if not @inventory_tags.empty? %>
+        <fieldset>
+            <legend>Select from Inventory</legend>
+            <div class="form-group">
+                <% @inventory_tags.each do |inv, selectors| %>
+                    <% selectors.each do |selector, fields| %>
+                        <label class="col-md-4 control-label" ><%= selector %></label>
+                        <div class="col-sm-5">
+                            <%= inventory_to_select(inv, selector) %>
+                        </div>
+                    <% end %>
+                <% end %>
+            </div>
+        </fieldset>
+        <% end %>
+        </div>
+	  <button type="submit" class="btn btn-primary">Submit</button>
+	</form>
