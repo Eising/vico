@@ -1,0 +1,42 @@
+<div class="col-md-10" id="maincontents">
+    <div class="row">
+        <div class="content-box-large">
+            <div class="panel-heading">
+                <h3>Search results</h3>
+            </div>
+            <div class="panel-body">
+                Found <%= @results %> results.
+                <% if @template_results.count > 0 %>
+                    <hr>
+                    <h3>Templates</h3>
+                    <ul>
+                        <% @template_results.each do |template|  %>
+                            <li><a href="/template/<%= template.id %>"><%= template.name %></a></li>
+                        <% end %>
+                    </ul>
+                <% end %>
+                <% if @form_results.count > 0 %>
+                    <hr>
+                    <h3>Forms</h3>
+                    <ul>
+                        <% @form_results.each do |form|  %>
+                            <li><a href="/form/<%= form.id %>"><%= form.name %></a></li>
+                        <% end %>
+                    </ul>
+                <% end %>
+                <% if @order_results.count > 0 %>
+                    <hr>
+                    <h3>Services</h3>
+                    <ul>
+                        <% @order_results.each do |order|  %>
+                            <li><a href="/config/view/<%= order.order_config.first.id %>"><%= order.reference %></a></li>
+                        <% end %>
+                    </ul>
+                <% end %>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
