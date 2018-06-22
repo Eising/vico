@@ -26,6 +26,7 @@ class Icing < Sinatra::Base
       :product => params[:product],
       :speed => params[:speed].to_i,
       :form_id => params[:form_id],
+      :comment => params[:comment],
       :created => Time.now
     }
     template_fields = {}

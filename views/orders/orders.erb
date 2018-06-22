@@ -20,9 +20,15 @@
           <div class="tab-content">
               <div class="tab-pane" id="tab1">
                     <div class="form-group">
-                        <label for="inputRef" class="col-sm-2 control-label">Order Reference</label>
+                        <label for="inputRef" class="col-sm-2 control-label">Order Reference<span style="color: red" >*</span></label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control required" id="inputRef" placeholder="Reference" name="reference">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLoc" class="col-sm-2 control-label">Node<span style="color: red">*</span> </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control required" id="inputNode" placeholder="Node name" name="node">
                         </div>
                     </div>
                     <div class="form-group">
@@ -38,12 +44,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputLoc" class="col-sm-2 control-label">Node</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputNode" placeholder="Node name" name="node">
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label for="inputProd" class="col-sm-2 control-label">Product</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="inputProd" placeholder="Product" name="product" list="list" autocomplete="off">
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputForm" class="col-sm-2 control-label">Service Form</label>
+                        <label for="inputForm" class="col-sm-2 control-label">Service Form<span style="color: red">*</span></label>
                         <div class="col-sm-10">
                             <select class="form-control required" id="inputForm" name="form_id">
                                 <option value="" selected="selected">Select Service</option>

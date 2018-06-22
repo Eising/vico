@@ -14,7 +14,15 @@ class Icing < Sinatra::Base
       if tag =~ /^inventory__/
         tags.delete(tag)
       end
+
+      # We don't support lists
+      if tag =~ /\./
+        tags.delete(tag)
+      end
     end
+
+
+
 
     tags
   end
