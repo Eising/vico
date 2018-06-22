@@ -123,6 +123,14 @@ class Icing < Sinatra::Base
 
   end
 
+  get '/inventories/import/:id' do
+    @pagename = "inventory_import"
+    @pagetitle = "Bulk Inventory"
+
+    erb :'inventories/import'
+
+  end
+
   get '/api/v1/inventories' do
 
   end
