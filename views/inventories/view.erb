@@ -3,7 +3,10 @@
     <div class="content-box-large">
       <div class="panel-heading">
           <div class="panel-body">
-              <table class="table table-striped table-bordered">
+
+            <form method="POST" action="/inventories/row/add">
+                <input type="hidden" name="inventory_id" value="<%= @inventory.id %>">
+              <table class="table table-striped table-bordered" id="inventorytable" >
                   <thead>
                       <tr>
                           <% @columns.each do |key| %>
@@ -18,20 +21,21 @@
                               <% @columns.each do |key| %>
                                   <td><a href="#" id="<%= key %>" data-type="text" data-pk="<%= row.id %>" data-name="<%= key %>" data-url="/inventories/row/update" data-placeholder="Required" class="editable editable-click"><%= row.entries[key] %></a> </td>
                               <% end %>
-                              <td><a href="/inventories/row/delete/<%= row.id %>"><button class="btn btn-danger">Delete</button></a> </td>
+                              <td><a href="/inventories/row/delete/<%= row.id %>"><button class="btn btn-danger" type="button" >Delete</button></a> </td>
                           </tr>
                       <% end %>
+                    </tbody>
+                      <tfoot>
                       <tr>
-                        <form method="POST" action="/inventories/row/add">
-                            <input type="hidden" name="inventory_id" value="<%= @inventory.id %>">
                             <% @columns.each do |key| %>
                                 <td><input class="form-control" type="text" name="key.<%= key %>" placeholder="<%= key%>"></td>
                             <% end %>
                             <td><button type="submit" class="btn btn-success">Add</button></td>
-                        </form>
                       </tr>
-                  </tbody>
+
+                      </tfoot>
               </table>
+                        </form>
           </div>
       </div>
     </div>
