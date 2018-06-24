@@ -1,5 +1,8 @@
-require 'bundler/setup'
+require 'bundler'
 require 'rack'
+
+Bundler.require
+
 require './app'
 #use PDFKit::Middleware, :page_size => 'A4', :print_media_type => true, :footer_center => "[page]/[toPage]", :footer_font_size => 10
 

@@ -15,6 +15,8 @@ gem 'netaddr'
 gem 'nokogiri'
 gem 'pg'
 gem 'sqlite3'
+gem 'rubyXL'
+gem 'rubyzip', '>= 1.2.1'
 group :test do
     gem 'cucumber-sinatra'
     gem 'cucumber'
