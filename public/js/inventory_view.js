@@ -1,4 +1,6 @@
 $(document).ready(function(){
     $('.editable').editable();
-    $('#inventorytable').dataTable();
+    $('#inventorytable').dataTable({
+        "order": []
+    });
 });

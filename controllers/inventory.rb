@@ -123,6 +123,33 @@ class Icing < Sinatra::Base
 
   end
 
+  # Generate an excel template for import/export
+  get '/inventories/generate_template/:id' do
+    content_type :'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    attachment("import.xslx")
+    inventory_id = params[:id]
+    data = generate_xl_template(inventory_id)
+    data
+
+  end
+
+  get '/inventories/upload/:id' do
+    @pagename = "inventories_upload"
+    @pagetitle = "Import (XLSX)"
+    @inventory_id = params[:id]
+
+    erb :'/inventories/upload'
+  end
+
+  post '/inventories/upload' do
+    file = params[:uploadsheet][:tempfile]
+    parse_xl_template(file.read, params[:inventory_id])
+
+    redirect to("/inventory/#{params[:inventory_id]}")
+
+
+  end
+
   get '/inventories/import/:id' do
     @pagename = "inventory_import"
     @pagetitle = "Bulk Inventory"
