@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Icing :: <%= @pagetitle %></title>
+    <title><%= config.base["sitename"] %> :: <%= @pagetitle %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- jQuery UI -->
     <link href="https://code.jquery.com/ui/1.10.3/themes/redmond/jquery-ui.css" rel="stylesheet" media="screen">
@@ -25,7 +25,7 @@
 	           <div class="col-md-5">
 	              <!-- Logo -->
 	              <div class="logo">
-	                 <h1><a href="/">Icing :: <%= @pagetitle %></a></h1>
+	                 <h1><a href="/"><%= config.base["sitename"] %> :: <%= @pagetitle %></a></h1>
 	              </div>
 	           </div>
 	           <div class="col-md-5">

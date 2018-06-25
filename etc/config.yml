@@ -1,4 +1,6 @@
 ---
+base:
+  sitename: Vico
 validators:
   string:
     :description: basic string validation
