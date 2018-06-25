@@ -35,6 +35,9 @@ class Icing < Sinatra::Base
         field = res[1]
         template_fields[field] = value
       end
+      if param =~ /^inv\./
+        template_fields[param] = value
+      end
     end
     args[:template_fields] = template_fields.to_json
 
