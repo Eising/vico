@@ -21,7 +21,7 @@
                               <% @columns.each do |key| %>
                                   <td><a href="#" id="<%= key %>" data-type="text" data-pk="<%= row.id %>" data-name="<%= key %>" data-url="/inventories/row/update" data-placeholder="Required" class="editable editable-click"><%= row.entries[key] %></a> </td>
                               <% end %>
-                              <td><a href="/inventories/row/delete/<%= row.id %>"><button class="btn btn-danger" type="button" >Delete</button></a> </td>
+                              <td><a href="#" data-href="/inventories/row/delete/<%= row.id %>" data-toggle="modal" data-target="#confirm-delete"><button class="btn btn-danger" type="button" data-href="/inventories/row/delete/<%= row.id %>" data-toggle="modal"  data-target="#confirm-delete" >Delete</button></a> </td>
                           </tr>
                       <% end %>
                     </tbody>

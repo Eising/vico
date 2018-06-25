@@ -27,7 +27,7 @@
 		<a href="/template/<%= template.id %>"><button class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i> View</button></a>
     <a href="/templates/clone/<%= template.id %>"><button class="btn btn-info"><i class="glyphicon glyphicon-arrow-right"></i> Clone</button></a>
 		<a href="/templates/edit/<%= template.id %>"><button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i> Edit</button></a>
-		<a href="/template/delete/<%= template.id %>"><button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> Delete</button></a>
+		<a data-href="/template/delete/<%= template.id %>" data-toggle="modal"  data-target="#confirm-delete" ><button class="btn btn-danger" data-href="/template/delete<%= template.id %>" data-toggle="modal" data-target="#confirm-delete"><i class="glyphicon glyphicon-remove"></i> Delete</button></a>
 	      </td>
 	    </tr>
 	    <% end %>

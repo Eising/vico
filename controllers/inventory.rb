@@ -26,6 +26,8 @@ Inventory.where(inventory_id => Inventories.where(entries.get_text('name') => "N
 class Icing < Sinatra::Base
 
   get '/inventories' do
+    @pagename = "inventory_index"
+    @pagetitle = "Inventories"
 
     @inventories = Inventories.where(:inventory_id => nil).exclude(:deleted => true).all
 
