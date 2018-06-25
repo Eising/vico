@@ -17,6 +17,7 @@ gem 'pg'
 gem 'sqlite3'
 gem 'rubyXL'
 gem 'rubyzip', '>= 1.2.1'
+gem 'bcrypt'
 group :test do
     gem 'cucumber-sinatra'
     gem 'cucumber'

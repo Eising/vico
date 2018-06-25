@@ -4,6 +4,7 @@ class Icing < Sinatra::Base
   # @method get_forms
   # Get all forms
   get '/forms' do
+    authenticate!
     @pagename = "forms"
     @pagetitle = "Manage forms"
 
@@ -15,6 +16,7 @@ class Icing < Sinatra::Base
   # @method get_forms_view
   # View forms
   get '/form/:id' do
+    authenticate!
     @pagename = "forms_view"
     @pagetitle = "View forms"
 
@@ -34,6 +36,7 @@ class Icing < Sinatra::Base
   # @method get_forms_compose
   # Compose form
   get '/forms/compose' do
+    authenticate!
     @templates = Templates.exclude(:deleted => true).all
 
     @pagename = "forms_compose"
@@ -47,6 +50,7 @@ class Icing < Sinatra::Base
   # @method post_forms_config
   # Configure composed form
   post '/forms/config' do
+    authenticate!
     @defaults = {}
     @pagename = "forms_config"
     @pagetitle = "Configure form"
@@ -70,6 +74,7 @@ class Icing < Sinatra::Base
   # @method get_forms_update
   # Update an existing form
   get '/forms/update/:id' do
+    authenticate!
     id = params[:id]
     if not Forms.where(:id => id).count == 1
       halt 404
@@ -101,6 +106,7 @@ class Icing < Sinatra::Base
   # @method post_forms_add
   # Submits a form
   post '/forms/add' do
+    authenticate!
     defaults = {}
     params.each do |param, value|
       if res = param.match(/^default\.(.*)$/)
@@ -141,6 +147,7 @@ class Icing < Sinatra::Base
   # Deletes a form
   # @param id [Integer] The form id to delete
   get '/forms/delete/:id' do
+    authenticate!
 
     # logic to delete id
     form = Forms.where(:id => params[:id])

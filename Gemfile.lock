@@ -15,6 +15,7 @@ GEM
   specs:
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    bcrypt (3.1.12)
     builder (3.2.3)
     capybara (3.2.1)
       addressable
@@ -102,6 +103,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt
   capybara
   cucumber
   cucumber-sinatra

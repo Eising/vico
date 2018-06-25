@@ -26,6 +26,7 @@ Inventory.where(inventory_id => Inventories.where(entries.get_text('name') => "N
 class Icing < Sinatra::Base
 
   get '/inventories' do
+    authenticate!
     @pagename = "inventory_index"
     @pagetitle = "Inventories"
 
@@ -35,6 +36,7 @@ class Icing < Sinatra::Base
   end
 
   get '/inventory/:id' do
+    authenticate!
     @pagename = "inventory_view"
     @inventory = Inventories.where(:id => params[:id]).first
     @pagetitle = "Inventory #{@inventory.entries['name']}"
@@ -44,6 +46,7 @@ class Icing < Sinatra::Base
   end
 
   get '/inventories/delete/:id' do
+    authenticate!
     inventory = Inventories.where(:id => params['id'])
     if inventory.count == 1
       inventory.update(:deleted => true)
@@ -53,6 +56,7 @@ class Icing < Sinatra::Base
   end
 
   post '/inventories/row/update' do
+    authenticate!
     id = params["pk"]
     inventory = Inventories.where(:id => id)
     entries = inventory.first.entries
@@ -64,6 +68,7 @@ class Icing < Sinatra::Base
   end
 
   post '/inventories/row/add' do
+    authenticate!
     inventory_id = params[:inventory_id]
     inventory = Inventories.where(:id => inventory_id).first
     entries = {}
@@ -82,6 +87,7 @@ class Icing < Sinatra::Base
   end
 
   get '/inventories/row/delete/:id' do
+    authenticate!
 
     inventory = Inventories.where(:id => params[:id])
     if inventory.count == 1
@@ -95,6 +101,7 @@ class Icing < Sinatra::Base
 
 
   get '/inventories/add' do
+    authenticate!
     @pagename = "inventory_add"
     @pagetitle = "Add Inventory"
     @validators = config.validators
@@ -104,6 +111,7 @@ class Icing < Sinatra::Base
   end
 
   post '/inventories/add' do
+    authenticate!
 
     name = params["name"]
     fields = {}
@@ -127,6 +135,7 @@ class Icing < Sinatra::Base
 
   # Generate an excel template for import/export
   get '/inventories/generate_template/:id' do
+    authenticate!
     content_type :'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     attachment("import.xlsx")
     inventory_id = params[:id]
@@ -136,6 +145,7 @@ class Icing < Sinatra::Base
   end
 
   get '/inventories/upload/:id' do
+    authenticate!
     @pagename = "inventories_upload"
     @pagetitle = "Import (XLSX)"
     @inventory_id = params[:id]
@@ -144,6 +154,7 @@ class Icing < Sinatra::Base
   end
 
   post '/inventories/upload' do
+    authenticate!
     file = params[:uploadsheet][:tempfile]
     parse_xl_template(file.read, params[:inventory_id])
 
@@ -153,6 +164,7 @@ class Icing < Sinatra::Base
   end
 
   get '/inventories/import/:id' do
+    authenticate!
     @pagename = "inventory_import"
     @pagetitle = "Bulk Inventory"
 

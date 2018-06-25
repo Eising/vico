@@ -6,6 +6,7 @@ class Icing < Sinatra::Base
   # @note This is the front page
 
   get '/' do
+    authenticate!
     @pagename = "orders_index"
     @pagetitle = "Provision Service"
 

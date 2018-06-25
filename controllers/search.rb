@@ -2,6 +2,7 @@ class Icing < Sinatra::Base
   # This is a class that handles searching
 
   get '/search' do
+    authenticate!
     @pagetitle = "Search Results"
     query = params[:query]
 

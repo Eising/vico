@@ -1,6 +1,7 @@
 class Icing < Sinatra::Base
 
   get '/config' do
+    authenticate!
     @pagename = "config_index"
     @pagetitle = "View Configurations"
     @configs = Configs.all
@@ -9,6 +10,7 @@ class Icing < Sinatra::Base
   end
 
   get '/config/render_order/:id' do
+    authenticate!
     order = Orders.where(:id => params[:id]).first
 
     # Compile the template
@@ -66,6 +68,7 @@ class Icing < Sinatra::Base
   end
 
   get '/config/view/:id' do
+    authenticate!
     @pagename = "config_view"
     @pagetitle = "View Configuration"
     @config = Configs.where(:id => params[:id]).first
@@ -75,12 +78,14 @@ class Icing < Sinatra::Base
   end
 
   get '/config/raw/up/:id' do
+    authenticate!
     @config = Configs.where(:id => params[:id]).first
 
     content_type 'text/plain'
     @config.up_config
   end
   get '/config/raw/down/:id' do
+    authenticate!
     @config = Configs.where(:id => params[:id]).first
 
     content_type 'text/plain'
@@ -88,6 +93,7 @@ class Icing < Sinatra::Base
   end
 
   get '/config/nodes' do
+    authenticate!
     @pagename = "config_nodes"
     @pagetitle = "View node conf"
     # Fetch all orders where the node field is set
@@ -98,6 +104,7 @@ class Icing < Sinatra::Base
   end
 
   get '/config/node/:node' do
+    authenticate!
     @pagename = "config_nodeview"
     @pagetitle = params[:node]
     valid_nodes = Orders.exclude(:deleted => true).exclude(:node => nil).select(:node).distinct.all.collect { |n| n.node }

@@ -4,6 +4,7 @@ class Icing < Sinatra::Base
   # @method get_templates
   # Administrate templates
   get '/templates' do
+    authenticate!
     @pagename = "templates"
     @pagetitle = "Administrate templates"
     @templates = Templates.exclude(:deleted => true).all
@@ -15,6 +16,7 @@ class Icing < Sinatra::Base
   # @todo Handle lack of tags
   #   Prints to stderr. Necessary?
   get '/template/:id' do
+    authenticate!
     # TODO: Hande lack of tags
     id = params[:id]
     @template = Templates.where(:id => id).first
@@ -26,6 +28,7 @@ class Icing < Sinatra::Base
   # @method get_templates_compose
   # Compose template
   get '/templates/compose' do
+    authenticate!
     @pagename = "templates_compose"
     @pagetitle = "Administrate templates"
     @template = {}
@@ -35,6 +38,7 @@ class Icing < Sinatra::Base
   # @method get_templates_edit_id
   # Edit a template
   get '/templates/edit/:id' do
+    authenticate!
     @pagename = "templates_compose"
     @pagetitle = "Administrate templates"
     @template = Templates.where(:id => params[:id]).first
@@ -46,6 +50,7 @@ class Icing < Sinatra::Base
   end
 
   get '/templates/clone/:id' do
+    authenticate!
     @pagename = "template_compose"
     @pagetitle = "Administrate templates"
     @template = Templates.where(:id => params[:id]).first
@@ -59,6 +64,7 @@ class Icing < Sinatra::Base
   # Add a template
   post '/templates/add' do
 
+    authenticate!
     args = { :name => params[:name], :up_contents => params[:up_contents], :platform => params[:platform], :description => params[:description], :down_contents => params[:down_contents] }
     if params[:template_id] =~ /\d+/
       template = Templates.where(:id => params[:template_id])
@@ -76,6 +82,7 @@ class Icing < Sinatra::Base
   # Configure validators and datatypes for a template
   # @param id [Integer] the template ID
   get '/templates/tags/:id' do
+    authenticate!
     @pagetitle = "Configure validators"
     @pagename = "templates_tags"
     id = params[:id]
@@ -98,6 +105,7 @@ class Icing < Sinatra::Base
   # @method post_template_tags
   # Submit template tags to the db
   post '/templates/tags' do
+    authenticate!
     tags = {}
     params.each do |param, value|
       if param =~ /^tag\.(.*)$/
@@ -114,6 +122,7 @@ class Icing < Sinatra::Base
   # Deletes a template
   # @param id [Integer] the template ID to delete
   get '/template/delete/:id' do
+    authenticate!
     id = params[:id]
     Templates.where(:id => id).update(:deleted => true)
     redirect to("/templates")
