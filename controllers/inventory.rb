@@ -126,7 +126,7 @@ class Icing < Sinatra::Base
   # Generate an excel template for import/export
   get '/inventories/generate_template/:id' do
     content_type :'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    attachment("import.xslx")
+    attachment("import.xlsx")
     inventory_id = params[:id]
     data = generate_xl_template(inventory_id)
     data
