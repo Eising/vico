@@ -25,4 +25,39 @@ class Icing < Sinatra::Base
     session.clear
     redirect '/login'
   end
+
+
+  get '/noaccess' do
+    @pagetitle = "Access Denied"
+
+    erb :'auth/noaccess'
+  end
+
+  get '/password' do
+    authenticate!
+    @pagetitle = "Change Password"
+    @pagename = "auth_passwd"
+    @error = session[:error]
+    session[:error] = nil
+
+    erb :'auth/password'
+  end
+
+  post '/password' do
+    authenticate!
+    current_password = params[:curr_password]
+    new_password = params[:password]
+
+    if test_password(current_password, current_user.password)
+      Users.where(:id => current_user.id).update(:password => hash_password(new_password))
+      session.clear
+      erb :'auth/login', :layout => false
+    else
+      session[:error] = "Wrong password. Please try again."
+      redirect to('/password')
+    end
+
+  end
+
+
 end

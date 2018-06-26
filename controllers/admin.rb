@@ -6,12 +6,15 @@ class Icing < Sinatra::Base
   # @method get_admin
   # Shows admin page
   get '/admin' do
+    authenticate!
     @pagename = "admin"
     @pagetitle = "Administration"
     erb :'admin/index'
   end
 
   get '/admin/orders' do
+    authenticate!
+    protection_level 100
     @pagename = "admin_orders"
     @pagetitle = "Provisioning orders"
     @orders = Orders.exclude(:deleted => true).all
@@ -22,6 +25,7 @@ class Icing < Sinatra::Base
   end
 
   get '/admin/order_delete/:id' do
+    authenticate!
     order = Orders.where(:id => params[:id]).exclude(:deleted => true)
     if order.count == 1
       order.update(:deleted => true)
@@ -30,6 +34,7 @@ class Icing < Sinatra::Base
   end
 
   get '/admin/order_undelete/:id' do
+    authenticate!
     order = Orders.where(:id => params[:id], :deleted => true)
     if order.count == 1
       order.update(:deleted => false)

@@ -24,4 +24,13 @@ class Icing < Sinatra::Base
     end
   end
 
+  def protection_level(level)
+    user = current_user
+    if user.access_level < level
+      redirect to('/noaccess')
+    else
+      true
+    end
+  end
+
 end
