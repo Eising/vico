@@ -47,7 +47,7 @@ class Icing < Sinatra::Base
     end
 
     import.each do |entry|
-      inventory.add_row(:entries => entry.to_json)
+      inventory.add_row(:entries => entry.to_json, :user_id => current_user.id)
     end
 
     import

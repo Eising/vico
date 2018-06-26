@@ -1,0 +1,90 @@
+<div class="col-md-10" id="maincontents">
+  <div class="row">
+    <div class="content-box-large">
+      <div class="panel-heading">
+	<div class="panel-title">Users</div>
+	<div class="panel-options"></div>
+      </div>
+      <div class="panel-body">
+          <table class="table table-striped table-bordered" id="usertable">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Real Name</th>
+                      <th>Email</th>
+                      <th>Access Level</th>
+                      <th></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <% @users.each do |user|  %>
+                      <tr>
+                          <td><%= user.name %></td>
+                          <td><%= user.realname %></td>
+                          <td><%= user.email %></td>
+                          <td><%= user.access_level %></td>
+                          <td><a data-href="/admin/user/delete/<%= user.id %>" data-toggle="modal" data-target="#confirm-delete"><button class="btn btn-danger" data-href="/admin/user/delete/<%= user.id %>" data-toggle="modal" data-target="#confirm-delete"><i class="glyphicon glyphicon-remove"></i> Remove</button></a></td>
+                      </tr>
+                  <% end  %>
+              </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="content-box-large">
+          <div class="panel-heading">
+              <div class="panel-title">Add User</div>
+          </div>
+          <div class="panel-body">
+              <form method="POST" action="/admin/user/add" id="useraddform" class="form-horizontal">
+                  <div class="form-group">
+                      <label class="col-sm-2 control-label">Name</label>
+                      <div class="col-sm-10">
+                          <input type="text" class="form-control required" placeholder="Username" name="username">
+                      </div>
+                  </div>
+                   <div class="form-group">
+                      <label class="col-sm-2 control-label">Real Name</label>
+                      <div class="col-sm-10">
+                          <input type="text" class="form-control required" placeholder="Real name" name="realname">
+                      </div>
+                  </div>
+                   <div class="form-group">
+                      <label class="col-sm-2 control-label">Email</label>
+                      <div class="col-sm-10">
+                          <input type="email" class="form-control required" placeholder="Email" name="email">
+                      </div>
+                  </div>
+                   <div class="form-group">
+                      <label class="col-sm-2 control-label">Access Level</label>
+                      <div class="col-sm-10">
+                          <select class="form-control required" name="access_level">
+                              <option value="10">10 (User)</option>
+                              <option value="50" selected="selected">50 (Power User)</option>
+                              <option value="100">100 (Admin)</option>
+                          </select>
+                      </div>
+                   </div>
+                   <div class="form-group">
+                      <label class="col-sm-2 control-label">Password</label>
+                      <div class="col-sm-10">
+                          <input type="password" class="form-control required" placeholder="Password" name="password" id="password">
+                      </div>
+                  </div>
+                   <div class="form-group">
+                      <label class="col-sm-2 control-label">Confirm password</label>
+                      <div class="col-sm-10">
+                          <input type="password" class="form-control required" placeholder="Confirm Password" name="cfmpassword" id="cfmpassword">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="col-sm-offset-2 col-sm-10">
+                          <button class="btn btn-primary" type="submit">Add</button>
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>

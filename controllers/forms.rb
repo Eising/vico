@@ -122,7 +122,8 @@ class Icing < Sinatra::Base
       :name => params[:name],
       :description => params[:description],
       :defaults => defaults.to_json,
-      :require_update => nil
+      :require_update => nil,
+      :user_id => current_user.id
     }
     if params[:form_id]
       form = Forms.where(:id => params[:form_id])

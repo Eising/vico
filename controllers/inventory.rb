@@ -61,7 +61,7 @@ class Icing < Sinatra::Base
     inventory = Inventories.where(:id => id)
     entries = inventory.first.entries
     entries[params["name"]] = params["value"]
-    inventory.update(:entries => entries.to_json)
+    inventory.update(:entries => entries.to_json, :user_id => current_user.id)
 
     {:message => "Sucessfully updated", :params => params}.to_json
 
@@ -72,14 +72,13 @@ class Icing < Sinatra::Base
     inventory_id = params[:inventory_id]
     inventory = Inventories.where(:id => inventory_id).first
     entries = {}
-    p params
     params.each do |key, value|
       if res = key.match(/^key\.(.*)$/)
         entries[res[1]] = value
       end
     end
-    p entries
-    inventory.add_row(:entries => entries.to_json)
+    user_id = current_user.id
+    inventory.add_row(:entries => entries.to_json, :user_id => user_id)
 
     redirect to("/inventory/#{inventory_id}")
 
@@ -127,7 +126,7 @@ class Icing < Sinatra::Base
       "fields" =>  fields
     }
 
-    Inventories.create(:entries => entries.to_json)
+    Inventories.create(:entries => entries.to_json, :user_id => current_user.id)
 
     redirect to('/inventories')
 

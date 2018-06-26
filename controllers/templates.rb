@@ -65,7 +65,7 @@ class Icing < Sinatra::Base
   post '/templates/add' do
 
     authenticate!
-    args = { :name => params[:name], :up_contents => params[:up_contents], :platform => params[:platform], :description => params[:description], :down_contents => params[:down_contents] }
+    args = { :name => params[:name], :up_contents => params[:up_contents], :platform => params[:platform], :description => params[:description], :down_contents => params[:down_contents], :user_id => current_user.id }
     if params[:template_id] =~ /\d+/
       template = Templates.where(:id => params[:template_id])
       template.update(args)
