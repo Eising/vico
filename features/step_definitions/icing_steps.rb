@@ -37,6 +37,33 @@ Given /^(?:|I )delete the form called (.+)$/ do |name|
   end
 end
 
+Given /^(?:|I )create a service called "([^\"]*)" containing:/ do |name, fields|
+  # Create template first
+  step %{I am on the template compose page}
+  step %{I fill in "name" with "#{name}_template"}
+  step %{I fill in "description" with "A cucumber template"}
+  step %{I fill in "platform" with "cucumber"}
+  contents = ""
+  fields.rows_hash.each do |varname, value|
+    contents += "{{#{varname}}}\n"
+  end
+  step %{I fill in "up_contents" with "#{contents}"}
+  step %{I fill in "down_contents" with "#{contents}"}
+  step %{I press "Add template"}
+  fields.rows_hash.each do |varname, value|
+    step %{I select "No validation" from "tag.#{varname}"}
+  end
+  step %{I press "Submit"}
+  # I configure a form
+  step %{I am on the form compose page}
+  step %{I fill in "name" with "#{name}"}
+  step %{I select "#{name}_template" from "templates[]"}
+  step %{I press "Submit"}
+  fields.rows_hash.each do |varname, value|
+    step %{I fill in "name.#{varname}" with "#{value}"}
+  end
+  step %{I press "Submit"}
+end
 
 
 When /^(?:|I )want to see the current page$/ do
