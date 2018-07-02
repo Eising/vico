@@ -69,3 +69,50 @@ end
 When /^(?:|I )want to see the current page$/ do
   print page.html
 end
+
+Given /^(?:|I )create an inventory called "([^\"]*)" containing:/ do |name, fields|
+  step %{I am on the add inventories page}
+  step %{I fill in "name" with "#{name}"}
+
+  fields.headers.each do |field|
+    step %{I fill in "fieldname" with "#{field}"}
+    step %{I press "Add Field"}
+  end
+
+  step %{I press "Submit"}
+
+  headers = [ fields.headers ]
+  data = fields.rows
+
+  inventory = data.map(&headers.first.method(:zip)).map(&:to_h)
+
+  # Now we need to find the Inventory
+  visit(get_inventory_path(name))
+
+  inventory.each do |opts|
+    opts.each do |key, value|
+        step %{I fill in "key.#{key}" with "#{value}"}
+    end
+    step %{I press "Add"}
+  end
+end
+
+Given /^(?:|I )delete the row containing "([^\"]*)" on inventory "([^\"]*)"$/ do |field, inventory|
+  step %{I go to the inventory called "#{inventory}"}
+  node = find('td', text: /#{field}/)
+  parent = node.find(:xpath, '..')
+  parent.find_button("Delete").click
+end
+
+When /^(?:|I )delete the inventory "([^\"]*)"$/ do |name|
+  step %{I go to the inventories page}
+  node = find('td', text: /#{name}/)
+  parent = node.find(:xpath, '..')
+  id = parent.find('td', text: /^\d+$/).text
+  if id
+    visit("/inventories/delete/#{id}")
+  else
+    raise
+  end
+
+end

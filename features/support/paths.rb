@@ -27,6 +27,15 @@ module NavigationHelpers
     when /the form compose page/
       '/forms/compose'
 
+    when /the inventories page/
+      '/inventories'
+
+    when /the add inventories page/
+      '/inventories/add'
+
+    when /the inventory called "([^\"]*)"/
+      get_inventory_path($1)
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
@@ -36,6 +45,22 @@ module NavigationHelpers
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in #{__FILE__}"
+    end
+  end
+
+  def get_inventory_path(name)
+    id = nil
+    Inventories.where(:inventory_id => nil).exclude(:deleted => true).all.each do |inventory|
+      if inventory.entries["name"] == name
+        id = inventory.id
+        break
+      end
+    end
+    if id
+      path = "/inventory/#{id}"
+      return path
+    else
+      raise
     end
   end
 end
