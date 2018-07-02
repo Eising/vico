@@ -1,6 +1,6 @@
-#+TITLE: Codename Icing (hopefully a better name will appear)
+#+TITLE: VICO
 
-Icing is a template-based network provisioning system.
+VICO is a template-based network provisioning system.
 
 It allows you quickly to provision network services using simple, logic-less templates.
 
