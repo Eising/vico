@@ -1,0 +1,22 @@
+<div class="col-md-10" id="maincontents">
+  <div class="row">
+    <div class="content-box-large">
+      <div class="panel-heading">
+	        <div class="panel-title"><h3>Error</h3></div>
+      </div>
+      <div class="panel-body">
+          <p>
+          The template you are trying to delete has one or more active forms.
+          Please delete the forms first.
+          </p>
+          <p>Forms who use this template are:</p>
+          <ul>
+          <% @template.form.each do |form| %>
+              <% next if form.deleted %>
+              <li><%= form.name %></li>
+          <% end %>
+          </ul>
+      </div>
+    </div>
+  </div>
+</div>

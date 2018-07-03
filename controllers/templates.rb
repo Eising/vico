@@ -125,8 +125,19 @@ class Icing < Sinatra::Base
     get '/delete/:id' do
       authenticate!
       id = params[:id]
-      Templates.where(:id => id).update(:deleted => true)
-      redirect to("/templates/")
+      @template = Templates.where(:id => id).first
+      if @template.form.count > 0
+        deleted = true
+        @template.form.each do |form|
+          if not form.deleted
+            deleted = false
+          end
+        end
+        erb :'templates/formerror'
+      else
+        Templates.where(:id => id).update(:deleted => true)
+        redirect to("/templates/")
+      end
     end
   end
 
