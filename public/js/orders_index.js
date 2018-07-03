@@ -16,7 +16,14 @@ $(document).ready(function() {
 	},
 	unhighlight: function(element, errorClass, validClass) {
 	    $(element).parents(".col-sm-5").addClass("has-success").removeClass("has-error");
-	}
+	},
+        rules: {
+            reference: {
+                required: true,
+                remote: '/provision/checkref.json'
+            }
+        },
+
     });
     $("#rootwizard").bootstrapWizard({
         'tabClass': 'nav nav-pills',

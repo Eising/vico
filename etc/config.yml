@@ -1,6 +1,7 @@
 ---
 base:
   sitename: Vico
+  enforce_unique_references: true
 validators:
   string:
     :description: basic string validation

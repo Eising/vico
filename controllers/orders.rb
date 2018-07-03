@@ -81,7 +81,15 @@ class Icing < Sinatra::Base
 
 
     end
+    get '/checkref.json' do
+      content_type 'text/json'
+      reference = params['reference']
+      if unique_reference? reference
+        "true".to_json
+      else
+        "The reference is already in use".to_json
+      end
+    end
 
   end
-
 end
