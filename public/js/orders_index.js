@@ -39,7 +39,7 @@ $(document).ready(function() {
     });
     $("#inputForm").on('change', function() {
         if (this.value) {
-            $("#tab2").load("/order/dynconfig/"+ this.value);
+            $("#tab2").load("/provision/dynconfig/"+ this.value);
         }
     });
 });

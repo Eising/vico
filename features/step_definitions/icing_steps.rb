@@ -11,13 +11,13 @@ Given /^(?:|I )am logged in as (.+) with password (.+)$/ do |user, password|
 end
 
 Given /^(?:|I )delete the template called (.+)$/ do |name|
-  visit("/templates")
+  visit("/templates/")
   id = nil
   node = find('td', text: /#{name}/)
   parent = node.find(:xpath, '..')
   id = parent.find('td', text: /^\d+$/).text
   if id
-    visit("/template/delete/#{id}")
+    visit("/templates/delete/#{id}")
   else
     raise
   end
@@ -25,7 +25,7 @@ end
 
 
 Given /^(?:|I )delete the form called (.+)$/ do |name|
-  visit("/forms")
+  visit("/forms/")
   id = nil
   node = find('td', text: /#{name}/)
   parent = node.find(:xpath, '..')
@@ -112,7 +112,7 @@ When /^(?:|I )delete the inventory "([^\"]*)"$/ do |name|
   if id
     visit("/inventories/delete/#{id}")
   else
-    raise
+    raise "Can't find ID field in inventory #{name}"
   end
 
 end

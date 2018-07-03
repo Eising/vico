@@ -13,22 +13,22 @@ module NavigationHelpers
       '/'
 
     when /the login\s?page/
-      '/login'
+      '/auth/login'
 
     when /the template(?:s)? page/
-      '/templates'
+      '/templates/'
 
     when /the template compose page/
       '/templates/compose'
 
     when /the form(?:s)? page/
-      '/forms'
+      '/forms/'
 
     when /the form compose page/
       '/forms/compose'
 
     when /the inventories page/
-      '/inventories'
+      '/inventories/'
 
     when /the add inventories page/
       '/inventories/add'
@@ -57,7 +57,7 @@ module NavigationHelpers
       end
     end
     if id
-      path = "/inventory/#{id}"
+      path = "/inventories/view/#{id}"
       return path
     else
       raise

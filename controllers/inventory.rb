@@ -24,154 +24,151 @@ Inventory.where(inventory_id => Inventories.where(entries.get_text('name') => "N
 =end
 
 class Icing < Sinatra::Base
+  namespace '/inventories' do
+    get '/' do
+      authenticate!
+      @pagename = "inventory_index"
+      @pagetitle = "Inventories"
 
-  get '/inventories' do
-    authenticate!
-    @pagename = "inventory_index"
-    @pagetitle = "Inventories"
+      @inventories = Inventories.where(:inventory_id => nil).exclude(:deleted => true).all
 
-    @inventories = Inventories.where(:inventory_id => nil).exclude(:deleted => true).all
-
-    erb :'inventories/inventories'
-  end
-
-  get '/inventory/:id' do
-    authenticate!
-    @pagename = "inventory_view"
-    @inventory = Inventories.where(:id => params[:id]).first
-    @pagetitle = "Inventory #{@inventory.entries['name']}"
-    @columns = @inventory.entries["fields"].keys
-
-    erb :'inventories/view'
-  end
-
-  get '/inventories/delete/:id' do
-    authenticate!
-    inventory = Inventories.where(:id => params['id'])
-    if inventory.count == 1
-      inventory.update(:deleted => true)
+      erb :'inventories/inventories'
     end
 
-    redirect to('/inventories')
-  end
+    get '/view/:id' do
+      authenticate!
+      @pagename = "inventory_view"
+      @inventory = Inventories.where(:id => params[:id]).first
+      @pagetitle = "Inventory #{@inventory.entries['name']}"
+      @columns = @inventory.entries["fields"].keys
 
-  post '/inventories/row/update' do
-    authenticate!
-    id = params["pk"]
-    inventory = Inventories.where(:id => id)
-    entries = inventory.first.entries
-    entries[params["name"]] = params["value"]
-    inventory.update(:entries => entries.to_json, :user_id => current_user.id)
+      erb :'inventories/view'
+    end
 
-    {:message => "Sucessfully updated", :params => params}.to_json
-
-  end
-
-  post '/inventories/row/add' do
-    authenticate!
-    inventory_id = params[:inventory_id]
-    inventory = Inventories.where(:id => inventory_id).first
-    entries = {}
-    params.each do |key, value|
-      if res = key.match(/^key\.(.*)$/)
-        entries[res[1]] = value
+    get '/delete/:id' do
+      authenticate!
+      inventory = Inventories.where(:id => params['id'])
+      if inventory.count == 1
+        inventory.update(:deleted => true)
       end
-    end
-    user_id = current_user.id
-    inventory.add_row(:entries => entries.to_json, :user_id => user_id)
 
-    redirect to("/inventory/#{inventory_id}")
-
-
-  end
-
-  get '/inventories/row/delete/:id' do
-    authenticate!
-
-    inventory = Inventories.where(:id => params[:id])
-    if inventory.count == 1
-      parent_id = inventory.first.inventory_id
-      inventory.delete
+      redirect to('/inventories/')
     end
 
-    redirect to("/inventory/#{parent_id}")
+    post '/row/update' do
+      authenticate!
+      id = params["pk"]
+      inventory = Inventories.where(:id => id)
+      entries = inventory.first.entries
+      entries[params["name"]] = params["value"]
+      inventory.update(:entries => entries.to_json, :user_id => current_user.id)
 
-  end
+      {:message => "Sucessfully updated", :params => params}.to_json
 
+    end
 
-  get '/inventories/add' do
-    authenticate!
-    @pagename = "inventory_add"
-    @pagetitle = "Add Inventory"
-    @validators = config.validators
-
-    erb :'/inventories/add'
-
-  end
-
-  post '/inventories/add' do
-    authenticate!
-
-    name = params["name"]
-    fields = {}
-
-    params.each do |key, value|
-      if res = key.match(/^field\.(.*)$/)
-        fields[res[1]] = value
+    post '/row/add' do
+      authenticate!
+      inventory_id = params[:inventory_id]
+      inventory = Inventories.where(:id => inventory_id).first
+      entries = {}
+      params.each do |key, value|
+        if res = key.match(/^key\.(.*)$/)
+          entries[res[1]] = value
+        end
       end
+      user_id = current_user.id
+      inventory.add_row(:entries => entries.to_json, :user_id => user_id)
+
+      redirect to("/inventories/view/#{inventory_id}")
+
+
     end
 
-    entries = {
-      "name" => name,
-      "fields" =>  fields
-    }
+    get '/row/delete/:id' do
+      authenticate!
 
-    Inventories.create(:entries => entries.to_json, :user_id => current_user.id)
+      inventory = Inventories.where(:id => params[:id])
+      if inventory.count == 1
+        parent_id = inventory.first.inventory_id
+        inventory.delete
+      end
 
-    redirect to('/inventories')
+      redirect to("/inventories/view/#{parent_id}")
 
-  end
-
-  # Generate an excel template for import/export
-  get '/inventories/generate_template/:id' do
-    authenticate!
-    content_type :'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    attachment("import.xlsx")
-    inventory_id = params[:id]
-    data = generate_xl_template(inventory_id)
-    data
-
-  end
-
-  get '/inventories/upload/:id' do
-    authenticate!
-    @pagename = "inventories_upload"
-    @pagetitle = "Import (XLSX)"
-    @inventory_id = params[:id]
-
-    erb :'/inventories/upload'
-  end
-
-  post '/inventories/upload' do
-    authenticate!
-    file = params[:uploadsheet][:tempfile]
-    parse_xl_template(file.read, params[:inventory_id])
-
-    redirect to("/inventory/#{params[:inventory_id]}")
+    end
 
 
-  end
+    get '/add' do
+      authenticate!
+      @pagename = "inventory_add"
+      @pagetitle = "Add Inventory"
+      @validators = config.validators
 
-  get '/inventories/import/:id' do
-    authenticate!
-    @pagename = "inventory_import"
-    @pagetitle = "Bulk Inventory"
+      erb :'/inventories/add'
 
-    erb :'inventories/import'
+    end
 
-  end
+    post '/add' do
+      authenticate!
 
-  get '/api/v1/inventories' do
+      name = params["name"]
+      fields = {}
 
+      params.each do |key, value|
+        if res = key.match(/^field\.(.*)$/)
+          fields[res[1]] = value
+        end
+      end
+
+      entries = {
+        "name" => name,
+        "fields" =>  fields
+      }
+
+      Inventories.create(:entries => entries.to_json, :user_id => current_user.id)
+
+      redirect to('/inventories')
+
+    end
+
+    # Generate an excel template for import/export
+    get '/generate_template/:id' do
+      authenticate!
+      content_type :'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      attachment("import.xlsx")
+      inventory_id = params[:id]
+      data = generate_xl_template(inventory_id)
+      data
+
+    end
+
+    get '/upload/:id' do
+      authenticate!
+      @pagename = "inventories_upload"
+      @pagetitle = "Import (XLSX)"
+      @inventory_id = params[:id]
+
+      erb :'/inventories/upload'
+    end
+
+    post '/upload' do
+      authenticate!
+      file = params[:uploadsheet][:tempfile]
+      parse_xl_template(file.read, params[:inventory_id])
+
+      redirect to("/inventories/view/#{params[:inventory_id]}")
+
+
+    end
+
+    get '/import/:id' do
+      authenticate!
+      @pagename = "inventory_import"
+      @pagetitle = "Bulk Inventory"
+
+      erb :'inventories/import'
+
+    end
   end
 end

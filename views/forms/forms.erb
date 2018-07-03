@@ -22,7 +22,7 @@
 	      <td><%= form.name %></td>
 	      <td><%= form.description %></td>
 	      <td>
-		<a href="/form/<%= form.id %>"><button class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i>View</button></a>
+		<a href="/forms/view/<%= form.id %>"><button class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i>View</button></a>
 		<a data-href="/forms/delete/<%= form.id %>" data-toggle="modal" data-target="#confirm-delete" ><button class="btn btn-danger" data-href="/forms/delete/<%= form.id %>" data-toggle="modal"  data-target="#confirm-delete"><i class="glyphicon glyphicon-remove"></i>Delete</button></a>
 		<% if form.require_update %>
 		<a href="/forms/update/<%= form.id %>"><button class="btn btn-warning"><i class="glyphicon glyphicon-exclamation-sign"></i>Update Required</button></a>

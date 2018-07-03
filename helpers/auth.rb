@@ -20,14 +20,14 @@ class Icing < Sinatra::Base
     if session[:user_id] and Users.exclude(:deleted => true).where(:id => session[:user_id]).count == 1
       nil
     else
-      redirect to('/login')
+      redirect to('/auth/login')
     end
   end
 
   def protection_level(level)
     user = current_user
     if user.access_level < level
-      redirect to('/noaccess')
+      redirect to('/auth/noaccess')
     else
       true
     end

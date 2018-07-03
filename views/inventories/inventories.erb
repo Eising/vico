@@ -19,7 +19,7 @@
                   <tr>
                       <td><%= inventory.id %></td>
                       <td><%= inventory.entries["name"] %></td>
-                      <td><a href="/inventory/<%= inventory.id %>"><button class="btn btn-primary">View</button></a><a data-href="/inventories/delete/<%= inventory.id %>" data-toggle="modal" data-target="#confirm-delete"><button class="btn btn-danger" data-href="/inventories/delete/<%= inventory.id %>" data-toggle="modal"  data-target="#confirm-delete">Delete</button></td>
+                      <td><a href="/inventories/view/<%= inventory.id %>"><button class="btn btn-primary">View</button></a><a data-href="/inventories/delete/<%= inventory.id %>" data-toggle="modal" data-target="#confirm-delete"><button class="btn btn-danger" data-href="/inventories/delete/<%= inventory.id %>" data-toggle="modal"  data-target="#confirm-delete">Delete</button></td>
                   </tr>
               <% end %>
                   </tbody>

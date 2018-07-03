@@ -32,4 +32,5 @@ gem 'rack-contrib'
 gem 'yard'
 github 'sinatra/sinatra' do
   gem 'rack-protection'
+  gem 'sinatra-contrib'
 end

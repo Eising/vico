@@ -10,6 +10,7 @@ require 'ostruct'
 # All gem dependencies are handled through bundler
 Bundler.require
 
+require 'sinatra/namespace'
 
 class Icing < Sinatra::Base
 
@@ -39,6 +40,9 @@ class Icing < Sinatra::Base
   def config
     OpenStruct.new(YAML.load_file('etc/config.yml'))
   end
+
+  # We'll use namespaces to isolate controllers.
+  register Sinatra::Namespace
 
 end
 
