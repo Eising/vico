@@ -1,3 +1,5 @@
 #+TITLE: VICO
 
-# This tool is obsoleted by <a href="https://github.com/Eising/viconf">Viconf</a>
+This tool is obsoleted and replaced by [[https://github.com/Eising/viconf][Viconf]].
+
+Code is left here for archival interests.
